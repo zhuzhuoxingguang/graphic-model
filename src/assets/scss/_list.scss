@@ -1,0 +1,25 @@
+// 针对antd的List组件重构样式
+.list-tree {
+  color: red;
+
+  .ant-list-items {
+    li {
+      position: relative;
+      cursor: pointer;
+
+      &.active {
+        color: #1890ff;
+
+        &::after {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: #1890ff;
+        }
+      }
+    }
+  }
+}

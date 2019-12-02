@@ -1,0 +1,21 @@
+{
+  "env": {
+    "commonjs": true,
+    "node": true,
+    "browser": true,
+    "serviceworker": true
+  },
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "plugins": ["react-hooks"],
+  "rules": {
+    "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react/jsx-handler-names": 0,
+    "experimentalDecorators": 0,
+    "template-curly-spacing": [0, "never"], //大括号内是否允许不必要的空格
+    "quotes": ["error", "double"],
+    "jsx-quotes": ["error", "double"]
+  }
+}

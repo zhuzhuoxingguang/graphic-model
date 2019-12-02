@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { HashRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import Login from "@/views/User"
+import Layout from "@/layouts"
+import { ConfigProvider } from "antd"
+import zhCN from "antd/es/locale/zh_CN"
 
-function App() {
+if (process.env.NODE_ENV === "development" && process.env.REACT_APP_BASE_URL === "mock") {
+  require("./mock/index")
+}
+// console.log("process.env", process.env)
+
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ConfigProvider locale={zhCN}>
+      <Router>
+        <Switch>
+          <Route
+            exact path="/"
+          >
+            <Redirect to="/login" />
+          </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/" component={Layout} />
+        </Switch>
+      </Router>
+    </ConfigProvider>
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.ant-table-small>.ant-table-content>.ant-table-body {
+  margin: 0 !important;
+}
+
+// 利用collapse重构tree
+.v-tree {
+  .ant-collapse {
+    border-radius: 0;
+
+    .ant-collapse-item:last-child>.ant-collapse-content {
+      border-radius: 0;
+    }
+  }
+
+  .ant-collapse-icon-position-right>.ant-collapse-item>.ant-collapse-header,
+  .leaf {
+    padding: 0;
+    line-height: 40px;
+    cursor: default;
+    // border-bottom: 1px solid #d9d9d9;
+    position: relative;
+
+    &.leaf-active {
+      color: #1890ff;
+      background: lighten(#1890ff, 40);
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #1890ff;
+      }
+    }
+  }
+
+  .ant-collapse-borderless>.ant-collapse-item {
+    border: none 0;
+  }
+
+  .ant-collapse-borderless>.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box {
+    padding: 0
+  }
+
+  .ant-collapse-content>.ant-collapse-content-box {
+    padding: 0
+  }
+
+  .ant-collapse-item-active {
+    .ant-collapse-header {
+      // border-bottom: 1px solid #d9d9d9;
+    }
+  }
+}

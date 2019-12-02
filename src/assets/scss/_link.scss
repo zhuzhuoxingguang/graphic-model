@@ -1,0 +1,42 @@
+.v-link {
+  padding: 0 8px;
+  position: relative;
+
+  &[type=danger] {
+    color: $danger-color;
+
+    &:hover {
+      color: darken($color: $danger-color, $amount: 15)
+    }
+  }
+
+  &[type=success] {
+    color: $success-color;
+
+    &:hover {
+      color: darken($color: $success-color, $amount: 10)
+    }
+  }
+
+  &[type=warning] {
+    color: $warning-color;
+
+    &:hover {
+      color: darken($color: $warning-color, $amount: 10)
+    }
+  }
+}
+
+.v-link-group {
+  .v-link {
+    &+.v-link::before {
+      content: '';
+      width: 1px;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      bottom: 2px;
+      background: #e8e8e8;
+    }
+  }
+}

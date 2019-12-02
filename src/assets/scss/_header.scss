@@ -1,0 +1,24 @@
+.page-header {
+  height: 64px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  .breadcrumb {
+    padding-left: 20px;
+
+    .ant-breadcrumb-link,
+    .ant-breadcrumb-separator {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    &>span:last-child {
+      .ant-breadcrumb-link {
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.loading {
+  position: relative;
+
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   top: 0;
+  //   bottom: 0;
+  //   background: rgba(0, 0, 0, 0.95);
+  // }
+  .ant-spin-container::after {
+    background: #000;
+  }
+
+  .ant-spin-blur::after {
+    opacity: .75;
+  }
+}
