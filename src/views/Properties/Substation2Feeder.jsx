@@ -21,7 +21,7 @@ class PropSubstation2Feeder extends Component {
           .filter(i => i.type === "变电站馈线数量")
           .map(substation => substation.substation)
         this.setState({ substations })
-        console.log(substations)
+        // console.log(substations)
       }
     })
   }

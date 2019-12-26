@@ -39,7 +39,7 @@ class GroupCheck extends Component {
 
   // 全部 选择事件
   handleCheckAll = () => {
-    console.log("全选")
+    // console.log("全选")
     const { isCheckAll, substations } = this.state
     substations.forEach(substation => {
       substation.checked = !isCheckAll
@@ -49,7 +49,7 @@ class GroupCheck extends Component {
 
   // toggle当前选项
   handleCheckCurrent = id => {
-    console.log("checkbox")
+    // console.log("checkbox")
     const { substations } = this.state
     const substation = substations.find(item => item.rdfID === id)
     substation.checked = !substation.checked
@@ -59,7 +59,7 @@ class GroupCheck extends Component {
 
   static getDerivedStateFromProps(props, state) {
     if (props.substations !== state.substations) {
-      console.log("props值：", props)
+      // console.log("props值：", props)
       return {
         substations: [...props.substations]
       }
@@ -72,10 +72,7 @@ class GroupCheck extends Component {
     return (
       <div className="group-checks">
         <ul className={isExpand ? "expand" : ""}>
-          <li
-            className={isCheckAll ? "active" : ""}
-            onClick={this.handleCheckAll}
-          >
+          <li className={isCheckAll ? "active" : ""} onClick={this.handleCheckAll}>
             全部
           </li>
           {substations.map(substation => {

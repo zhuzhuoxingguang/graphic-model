@@ -153,7 +153,7 @@ export default props => {
   const [option, setOption] = useState(optionInitial)
 
   const [minHeight, setHeight] = useState("calc(100vh - 280px)")
-  console.log("datasource", dataSource)
+  // console.log("datasource", dataSource)
   useEffect(() => {
     const { nodes, links } = handleData(dataSource)
     option.series.data = nodes

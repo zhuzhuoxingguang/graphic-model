@@ -15,19 +15,19 @@ import {
 
 // 属性校验 变电站馈线
 Mock.mock(RegExp("/api" + PROPERTIES_SUBSTATION_FEEDERS + ".*"), "get", res => {
-  console.log("mock:", PROPERTIES_SUBSTATION_FEEDERS)
+  // console.log("mock:", PROPERTIES_SUBSTATION_FEEDERS)
   return Mock.mock(FeererCount)
 })
 
 // 属性校验 同名设备校验
 Mock.mock(RegExp("/api" + PROPERTIES_DEVICES_SAME_NAMES + ".*"), "get", res => {
-  console.log("mock:", PROPERTIES_DEVICES_SAME_NAMES)
+  // console.log("mock:", PROPERTIES_DEVICES_SAME_NAMES)
   return Mock.mock(DulplicateNames)
 })
 
 // 属性校验 同编号设备校验
 Mock.mock(RegExp("/api" + PROPERTIES_DEVICES_SAME_SERIES + ".*"), "get", res => {
-  console.log("mock:", PROPERTIES_DEVICES_SAME_SERIES)
+  // console.log("mock:", PROPERTIES_DEVICES_SAME_SERIES)
   return Mock.mock(DuplicateSerial)
 })
 

@@ -37,7 +37,7 @@ const getParentKey = (key, tree) => {
 const regenerateSubstations = data => {
   return data.map(node => {
     const { rdfID, name, substations, subRegions } = node
-    const children = ((subRegions && subRegions.length) ? subRegions : substations) || []
+    const children = (subRegions && subRegions.length ? subRegions : substations) || []
     return {
       id: rdfID,
       title: name,
@@ -59,7 +59,7 @@ export default class TreeSubstations extends PureComponent {
       const substations = regenerateSubstations([res])
       this.setState({ substations, expandedKeys: [res.rdfID] })
       generateList(substations)
-      console.log("初始化数据", dataList)
+      // console.log("初始化数据", dataList)
     })
   }
 
@@ -71,7 +71,7 @@ export default class TreeSubstations extends PureComponent {
   }
 
   onSelect = (selectedKeys, info) => {
-    console.log("-----selected", selectedKeys, info)
+    // console.log("-----selected", selectedKeys, info)
   }
 
   // 变电站选择 超过两个 给予提示 页面展示不下
@@ -80,12 +80,12 @@ export default class TreeSubstations extends PureComponent {
     if (checkedKeys.length > 4) {
       Modal.confirm({
         title: "确认",
-        content: '变电站选择过多，会导致页面绘图溢出，且布局拥挤，是否确认继续选择变电站？',
+        content: "变电站选择过多，会导致页面绘图溢出，且布局拥挤，是否确认继续选择变电站？",
         okText: "确认",
         cancelText: "取消",
         onOk: () => {
           this.props.onGetConnections(checkedKeys)
-          console.log("确认继续选择变电站")
+          // console.log("确认继续选择变电站")
         }
       })
     } else {
@@ -106,13 +106,15 @@ export default class TreeSubstations extends PureComponent {
     }
 
     // 非搜索关键词的最终解决方案，但是适合当前的应用
-    const expandedKeys = dataList.map(item => {
-      let { title } = item
-      if (title.indexOf(value) > -1) {
-        return getParentKey(item.id, dataList)
-      }
-      return null
-    }).filter((item, i, self) => item && self.indexOf(item) === i)
+    const expandedKeys = dataList
+      .map(item => {
+        let { title } = item
+        if (title.indexOf(value) > -1) {
+          return getParentKey(item.id, dataList)
+        }
+        return null
+      })
+      .filter((item, i, self) => item && self.indexOf(item) === i)
     this.setState({
       expandedKeys: [id, ...expandedKeys],
       searchValue: value,
@@ -120,7 +122,7 @@ export default class TreeSubstations extends PureComponent {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getSubstations()
   }
 
@@ -135,12 +137,12 @@ export default class TreeSubstations extends PureComponent {
         index > -1 ? (
           <span>
             {beforeStr}
-            <span style={{ color: '#f50' }}>{searchValue}</span>
+            <span style={{ color: "#f50" }}>{searchValue}</span>
             {afterStr}
           </span>
         ) : (
-            <span>{item.title}</span>
-          )
+          <span>{item.title}</span>
+        )
       if (item.children && item.children.length) {
         return (
           <TreeNode key={item.id} title={title} disabled>
@@ -150,7 +152,6 @@ export default class TreeSubstations extends PureComponent {
       }
       return <TreeNode key={item.id} title={title} />
     })
-
 
     // return treeData.map(node => {
     //   if (!node.children || !node.children.length) {
@@ -164,7 +165,7 @@ export default class TreeSubstations extends PureComponent {
     // })
   }
 
-  render () {
+  render() {
     const { substations, expandedKeys, autoExpandParent } = this.state
     return (
       <>

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Chart, Geom, Axis, Tooltip, Legend } from 'bizcharts'
+import React, { Component } from "react"
+import { Chart, Geom, Axis, Tooltip, Legend } from "bizcharts"
 
 // 定义度量
 const cols = {
@@ -10,10 +10,10 @@ const cols = {
 
 class Bar extends Component {
   handlePlotClick = (ev, item) => {
-    console.log(ev, item)
+    // console.log(ev, item)
   }
 
-  render () {
+  render() {
     const { data = [], height = 320 } = this.props
     return (
       <Chart
@@ -21,14 +21,14 @@ class Bar extends Component {
         data={data}
         scale={cols}
         forceFit
-        padding='auto'
+        padding="auto"
         onPlotClick={this.handlePlotClick}
       >
         <Axis title />
         <Axis title />
-        <Legend position='top' dy={-20} />
+        <Legend position="top" dy={-20} />
         <Tooltip />
-        <Geom type='interval' position='genre*sold' color='genre' />
+        <Geom type="interval" position="genre*sold" color="genre" />
       </Chart>
     )
   }

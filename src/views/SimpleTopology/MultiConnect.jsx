@@ -1,12 +1,11 @@
 import React, { Component } from "react"
-import { Card, Layout, Table, Tabs, Icon } from "antd"
+import { Card, Layout, Tabs, Icon } from "antd"
 import VTree from "@/components/VTree"
 import SimpleTable from "../../components/SimpleTable"
 import { getMultiConnect } from "../../api/topologySimple"
 
 const { TabPane } = Tabs
 const { Content } = Layout
-const { Column } = Table
 
 const resetTreeData = trees => {
   return trees.map(node => {
@@ -55,7 +54,6 @@ class NoCollectBus extends Component {
 
   getData = () => {
     getMultiConnect().then(res => {
-      console.log(res)
       if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
         this.setState({ treeData: resetTreeData(res.hierarchyResults) })
       }
@@ -63,7 +61,6 @@ class NoCollectBus extends Component {
   }
 
   handleTreeChange = node => {
-    console.log("====", node)
     this.setState({ tableData: node.equipments || [] })
   }
 

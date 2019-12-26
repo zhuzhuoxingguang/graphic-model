@@ -1,7 +1,7 @@
 /* eslint-disable template-curly-spacing */
 import React, { Component, createRef } from "react"
 import { Card, Layout, Divider, Spin } from "antd"
-import ReactEcharts from 'echarts-for-react'
+import ReactEcharts from "echarts-for-react"
 import TreeSubstations from "@/components/TreeSubstations"
 import { getSubstationsConnections } from "@/api/relations"
 
@@ -35,7 +35,7 @@ export default class Substations extends Component {
         lineStyle: {
           color: "source",
           width: 3,
-          curveness: .5
+          curveness: 0.5
         },
         force: {
           repulsion: 30
@@ -56,47 +56,48 @@ export default class Substations extends Component {
   getSubstationsConnections = params => {
     this.setState({ loading: true })
     const { option } = this.state
-    getSubstationsConnections(params).then(res => {
-      console.log(res)
-      const { series: [series] } = res
-      const { categories = [], nodes = [], links = [] } = series
-      option.series = { ...option.series, categories, nodes, links }
-      option.legend.data = categories.map(a => a.name)
-      if (params.length > 2) {
-        option.series.zoom = 3
-      }
-      this.setState({ option })
-      this.echartsInstance.setOption(option)
-    }).finally(() => this.setState({ loading: false }))
+    getSubstationsConnections(params)
+      .then(res => {
+        // console.log(res)
+        const {
+          series: [series]
+        } = res
+        const { categories = [], nodes = [], links = [] } = series
+        option.series = { ...option.series, categories, nodes, links }
+        option.legend.data = categories.map(a => a.name)
+        if (params.length > 2) {
+          option.series.zoom = 3
+        }
+        this.setState({ option })
+        this.echartsInstance.setOption(option)
+      })
+      .finally(() => this.setState({ loading: false }))
   }
 
-  resetSubstations = substations => {
+  resetSubstations = substations => {}
 
-  }
-
-  componentDidMount () {
+  componentDidMount() {
     // this.getSubstations()
     this.echartsInstance = this.echartsRef.getEchartsInstance()
   }
 
-  render () {
+  render() {
     const { option, loading } = this.state
     return (
       <Card bodyStyle={{ padding: 0 }}>
         <Spin spinning={loading}>
           <Layout style={{ background: "#fff" }}>
-            <Sider style={{ background: "#fff", padding: "10px", height: 'calc(100vh - 154px)', overflowY: 'auto' }}>
+            <Sider
+              style={{ background: "#fff", padding: "10px", height: "calc(100vh - 154px)", overflowY: "auto" }}
+            >
               <TreeSubstations onGetConnections={this.getSubstationsConnections} />
             </Sider>
-            <Divider
-              type="vertical"
-              style={{ height: "auto", display: "block", margin: 0 }}
-            />
+            <Divider type="vertical" style={{ height: "auto", display: "block", margin: 0 }} />
             <Content style={{ background: "#fff", padding: "10px", height: "calc(100vh - 154px)" }}>
               <ReactEcharts
                 option={option}
-                style={{ height: '100%', width: '100%' }}
-                ref={node => this.echartsRef = node}
+                style={{ height: "100%", width: "100%" }}
+                ref={node => (this.echartsRef = node)}
               />
             </Content>
           </Layout>

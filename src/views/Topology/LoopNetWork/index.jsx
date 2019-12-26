@@ -6,6 +6,7 @@ import { getLoop } from "@/api/topology"
 const { TabPane } = Tabs
 const { Content } = Layout
 
+// eslint-disable-next-line
 const resetTreeData = trees => {
   return trees.map(node => {
     const children = node.breakers && node.breakers.length && node.breakers
@@ -49,9 +50,8 @@ class Loop extends Component {
 
   getData = () => {
     getLoop().then(res => {
-      console.log("====", res)
+      // console.log("====", res)
       if (res.result === 0 && res.results && res.results.length) {
-        // resetTreeData(res.results)
         this.setState({ treeData: [] })
       }
     })

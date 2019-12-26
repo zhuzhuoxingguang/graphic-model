@@ -61,7 +61,7 @@ class VTree extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { treeData } = nextProps
     if (JSON.stringify(treeData) !== JSON.stringify(prevState.treeData)) {
-      console.log(treeData)
+      // console.log(treeData)
       flatTreeData(treeData)
       return {
         ...prevState,
@@ -73,15 +73,15 @@ class VTree extends Component {
 
   componentDidUpdate() {
     // const list = this.handleTreeData(this.state.treeData)
-    console.log("====", this.rootSubmenuKeys)
+    // console.log("====", this.rootSubmenuKeys)
   }
 
   handleClick = ({ keyPath, key }) => {
-    console.log(this.state)
+    // console.log(this.state)
     const { onClick = () => {} } = this.props
     const { treeData } = this.state
     const target = treeData.find(node => node.key === key)
-    console.log("target", target)
+    // console.log("target", target)
     onClick(target)
   }
 

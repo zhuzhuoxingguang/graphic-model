@@ -1,5 +1,5 @@
-import { START_REQUEST, END_REQUEST, COLLAPSE_NAEMENU, SET_BREADCRUMB, CHANGE_LOADING } from '../types'
-import request from '@/utils/request'
+import { START_REQUEST, END_REQUEST, COLLAPSE_NAEMENU, SET_BREADCRUMB, CHANGE_LOADING } from "../types"
+import request from "@/utils/request"
 
 // 侧边栏收起事件
 export const collapseNavMenu = () => dispatch => {
@@ -18,15 +18,15 @@ export const setBreadcrumb = payload => dispatch => {
 // 如果请求正在进行，则不发生二次请求
 let userLoading = false
 export const getUserInfo = () => dispatch => {
-  const user = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem("user"))
   const { userId } = user
   if (!userLoading) {
     userLoading = true
-    console.log('userId: ', userId)
+    // console.log('userId: ', userId)
     dispatch({
       type: START_REQUEST
     })
-    request('/web/management/personal/getUserInfo', { userId }).then(res => {
+    request("/web/management/personal/getUserInfo", { userId }).then(res => {
       userLoading = false
       dispatch({
         type: END_REQUEST

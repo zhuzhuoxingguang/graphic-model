@@ -34,7 +34,7 @@ class LayoutView extends Component {
   }
 
   onCollapse = collapsed => {
-    console.log(collapsed)
+    // console.log(collapsed)
     this.setState({ collapsed })
   }
 

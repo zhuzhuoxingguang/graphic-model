@@ -1,11 +1,10 @@
 import React, { Component } from "react"
-import { Card, Layout, Table, Tabs, Icon, Descriptions, Empty } from "antd"
+import { Card, Layout, Tabs, Icon, Descriptions, Empty } from "antd"
 import VTree from "@/components/VTree"
 import { getFeederEndSwitch } from "@/api/topologySimple"
 
 const { TabPane } = Tabs
 const { Content } = Layout
-const { Column } = Table
 
 const resetTreeData = trees => {
   return trees.map(node => {
@@ -15,16 +14,7 @@ const resetTreeData = trees => {
       (node.extra && node.extra.length && node.extra)
 
     if (!children || !children.length) {
-      const {
-        name,
-        graphID,
-        rdfID,
-        clazzName,
-        substationName,
-        switchStationName,
-        feederName,
-        feederID
-      } = node.equipment
+      const { name, rdfID, clazzName, substationName, switchStationName, feederName, feederID } = node.equipment
       return {
         label: name,
         key: rdfID,
@@ -54,7 +44,6 @@ class NoCollectBus extends Component {
 
   getData = () => {
     getFeederEndSwitch().then(res => {
-      console.log(res)
       if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
         this.setState({ treeData: resetTreeData(res.hierarchyResults) })
       }
@@ -62,7 +51,6 @@ class NoCollectBus extends Component {
   }
 
   handleMenuChange = node => {
-    console.log(node)
     this.setState({ currentNode: node.equipments })
   }
 
@@ -71,8 +59,7 @@ class NoCollectBus extends Component {
   }
 
   render() {
-    const { data, treeData, currentNode } = this.state
-    console.log("current:", currentNode)
+    const { treeData, currentNode } = this.state
     return (
       <Card bodyStyle={{ padding: 20 }}>
         <Layout>

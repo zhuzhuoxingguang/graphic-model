@@ -16,7 +16,6 @@ class PropSubstation2Feeder extends Component {
 
   getData = () => {
     getNoFeederBreaker().then(res => {
-      console.log("=====", res)
       const tableData = []
       if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
         res.hierarchyResults.forEach(substation => {
@@ -34,13 +33,13 @@ class PropSubstation2Feeder extends Component {
       }
 
       this.setState({ list: tableData }, () => {
-        console.log(this.state.list)
+        // console.log(this.state.list)
       })
     })
   }
 
   onTabChange = (key, type) => {
-    console.log(key, type)
+    // console.log(key, type)
     this.setState({ [type]: key })
   }
 
@@ -49,7 +48,6 @@ class PropSubstation2Feeder extends Component {
   }
 
   render() {
-    console.log(this.state.list)
     return (
       <Card
         style={{ width: "100%" }}

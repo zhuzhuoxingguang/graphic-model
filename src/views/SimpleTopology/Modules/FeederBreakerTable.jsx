@@ -4,7 +4,6 @@ const { Column } = Table
 
 export default props => {
   const { data = [] } = props
-  console.log("breaker: ", data)
   return (
     <Table dataSource={data} pagination={false}>
       <Column title="区域" dataIndex="name" key="name" />

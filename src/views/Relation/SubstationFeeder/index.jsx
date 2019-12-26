@@ -1,11 +1,11 @@
 /* eslint-disable space-before-function-paren */
-import React, { Component } from 'react'
-import { Input, Table, Card, Divider, Typography } from 'antd'
-import { connect } from 'react-redux'
-import { getSubstationsFeeders } from '@/api/relation'
-import SearchForm from '@/components/SearchForm'
-import VPagination from '@/components/VPagination'
-import { changeLoading } from '@/store/actions/constant'
+import React, { Component } from "react"
+import { Input, Table, Card, Divider, Typography } from "antd"
+import { connect } from "react-redux"
+import { getSubstationsFeeders } from "@/api/relation"
+import SearchForm from "@/components/SearchForm"
+import VPagination from "@/components/VPagination"
+import { changeLoading } from "@/store/actions/constant"
 
 const { Column } = Table
 const { Text } = Typography
@@ -16,18 +16,18 @@ class Substations2Feeders extends Component {
     this.state = {
       list: [],
       total: 0,
-      substationName: ''
+      substationName: ""
     }
   }
 
   data = {
-    substationName: ''
+    substationName: ""
   }
 
   handleSearch = val => {
     const { substationName } = val
     if (substationName !== this.data.substationName) {
-      console.log(val)
+      // console.log(val)
       this.data.substationName = substationName
       this.getData(substationName, 1, 10)
     }
@@ -41,7 +41,7 @@ class Substations2Feeders extends Component {
   getData = (substationName, page, pageSize) => {
     this.props.changeLoading(true)
     getSubstationsFeeders(page, pageSize).then(res => {
-      console.log(res)
+      // console.log(res)
       const { list = [], total = 0 } = res
       this.setState({ list, total })
       setTimeout(() => {
@@ -50,38 +50,35 @@ class Substations2Feeders extends Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getData()
   }
 
-  render () {
+  render() {
     const { list, total } = this.state
     return (
       <div>
         <SearchForm search={this.handleSearch}>
-          <Input placeholder='请输入变电站名称' key='substationName' formType='Input' />
+          <Input placeholder="请输入变电站名称" key="substationName" formType="Input" />
         </SearchForm>
         <Card bodyStyle={{ padding: 0 }} style={{ marginTop: 20 }}>
-          <Table
-            dataSource={list}
-            pagination={false}
-          >
-            <Column width={120} title='变电站名称' dataIndex='substationName' key='substationName' />
+          <Table dataSource={list} pagination={false}>
+            <Column width={120} title="变电站名称" dataIndex="substationName" key="substationName" />
             <Column
-              title='线路数量'
-              key='sum'
-              align='center'
+              title="线路数量"
+              key="sum"
+              align="center"
               width={120}
               render={({ lines }) => lines.length}
             />
             <Column
-              title='线路名称'
-              key='lines'
+              title="线路名称"
+              key="lines"
               render={({ lines }) => {
                 return lines.map((line, index) => {
                   return (
                     <>
-                      {index > 0 && <Divider type='vertical' key={total} />}
+                      {index > 0 && <Divider type="vertical" key={total} />}
                       <Text key={line + index}>{line}</Text>
                     </>
                   )
@@ -89,7 +86,7 @@ class Substations2Feeders extends Component {
               }}
             />
           </Table>
-          <VPagination align='right' onPaginationChange={this.handlePaginationChange} total={total} />
+          <VPagination align="right" onPaginationChange={this.handlePaginationChange} total={total} />
         </Card>
       </div>
     )

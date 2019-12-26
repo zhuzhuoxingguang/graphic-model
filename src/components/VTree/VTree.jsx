@@ -64,8 +64,8 @@ const VTree = props => {
 
   // 节点点击事件
   const handleClick = useCallback(({ key }) => {
-    console.log(key)
-  })
+    // console.log(key)
+  }, [])
 
   // 设置默认展开项
   const [openKeys, setOpenKeys] = useState([])
@@ -75,18 +75,18 @@ const VTree = props => {
   // 设置SubMenu展开折叠事件
   const onOpenChange = useCallback(
     keys => {
-      console.log("latestOpenKey:", keys, openKeys)
+      // console.log("latestOpenKey:", keys, openKeys)
       const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
       if (flatTrees.indexOf(latestOpenKey) === -1) {
         setOpenKeys(keys)
       } else {
-        console.log("keys:", keys, latestOpenKey)
+        // console.log("keys:", keys, latestOpenKey)
 
         const list = latestOpenKey ? [latestOpenKey] : []
         setOpenKeys(list)
       }
     },
-    [openKeys]
+    [openKeys, flatTrees]
   )
 
   return (

@@ -54,9 +54,9 @@ class NoCollectBus extends Component {
   }
 
   getData = () => {
-    console.log("两端连接")
+    // console.log("两端连接")
     getBothConnect().then(res => {
-      console.log("------------", res)
+      // console.log("------------", res)
       if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
         this.setState({ treeData: resetTreeData(res.hierarchyResults) })
       }
@@ -64,7 +64,7 @@ class NoCollectBus extends Component {
   }
 
   handleMenuChange = node => {
-    console.log(node)
+    // console.log(node)
     const { equipments = [] } = node
     this.setState({ tableData: equipments })
     // this.setState({ currentNode: node })

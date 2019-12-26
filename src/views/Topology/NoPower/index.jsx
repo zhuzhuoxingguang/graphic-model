@@ -54,7 +54,7 @@ class NoPower extends Component {
 
   getData = () => {
     getNoPower().then(res => {
-      console.log("====", res)
+      // console.log("====", res)
       if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
         this.setState({ treeData: resetTreeData(res.hierarchyResults) })
       }
@@ -62,7 +62,7 @@ class NoPower extends Component {
   }
   handleMenuChange = node => {
     const { equipments = [] } = node
-    console.log("equipments:", equipments)
+    // console.log("equipments:", equipments)
     this.setState({ list: equipments })
   }
 

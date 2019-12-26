@@ -301,9 +301,7 @@ const handleData = list => {
         }
 
         if (
-          allLink[
-            `${inter.equipment.rdfID}-${inter.interconnectionFeeder.rdfID}`
-          ] == null &&
+          allLink[`${inter.equipment.rdfID}-${inter.interconnectionFeeder.rdfID}`] == null &&
           feeder.rdfID !== inter.interconnectionFeeder.rdfID
         ) {
           links.push({
@@ -312,9 +310,7 @@ const handleData = list => {
             label: inter.interconnectionFeeder.name
           })
 
-          allLink[
-            `${inter.interconnectionFeeder.rdfID}-${inter.equipment.rdfID}`
-          ] = 1
+          allLink[`${inter.interconnectionFeeder.rdfID}-${inter.equipment.rdfID}`] = 1
         }
       })
     })
@@ -333,14 +329,14 @@ export default props => {
   const [options, setOptions] = useState(optionInitial)
   useEffect(() => {
     const { links, nodes } = handleData(dataSource)
-    console.log(refEcharts)
+    // console.log(refEcharts)
     if (!myCharts) {
       myCharts = echarts.init(refEcharts.current, null, { renderer: "svg" })
     }
     options.series.links = links
     options.series.data = nodes
     myCharts.setOption({ ...options }, true, true)
-    console.log("------", options)
+    // console.log("------", options)
     setOptions(options)
     return () => {
       myCharts.clear()

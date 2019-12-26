@@ -15,7 +15,7 @@ class DevicesSameNO extends Component {
 
   getData = () => {
     getPropertySameSeriesDevices().then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.result === 0) {
         const sameSerials = res.results.filter(item => item.type === "同编号设备校验")
         const list = sameSerials.map(item => ({ name: item.serial, id: item.serial }))
@@ -26,7 +26,7 @@ class DevicesSameNO extends Component {
   }
 
   handleListItemChange = item => {
-    console.log(item)
+    // console.log(item)
     let currentSerial = this.allDevices.find(device => device.serial === item.id)
     const list = currentSerial && currentSerial.equipments ? currentSerial.equipments : []
     this.setState({ tableData: list })
@@ -38,7 +38,6 @@ class DevicesSameNO extends Component {
 
   render() {
     const { tableData, list } = this.state
-    console.log(tableData)
     return (
       <Card bodyStyle={{ padding: 20 }}>
         <Layout>
