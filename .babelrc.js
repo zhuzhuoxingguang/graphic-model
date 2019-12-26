@@ -1,11 +1,9 @@
-const path = require('path')
-
 module.exports = {
   plugins: [
     [
-      'import',
+      "import",
       {
-        libraryName: 'antd',
+        libraryName: "antd",
         style: true
       }
     ]

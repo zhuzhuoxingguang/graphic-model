@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { message } from 'antd'
 // 不需要Loading状态的接口请求
 // const whiteList = ['/substationAndBusTree']
 
@@ -24,12 +23,6 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(res => {
   // 对返回的数据进行一些处理
   if (res.status === 200) {
-    // 请求结果statusCode不为200，直接报错
-    // if (res.data.statusCode !== 200) {
-    //   message.destroy()
-    //   message.error(res.data.message)
-    //   return Promise.reject(res)
-    // }
     return res.data
   } else {
     return Promise.reject(res)

@@ -1,4 +1,4 @@
-const { override, fixBabelImports, addWebpackAlias } = require('customize-cra')
+const { override, fixBabelImports, addWebpackAlias, useBabelRc } = require('customize-cra')
 const path = require('path')
 
 module.exports = override(

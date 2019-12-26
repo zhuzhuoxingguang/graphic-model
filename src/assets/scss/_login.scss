@@ -41,13 +41,13 @@
     margin: 0 auto;
   }
 
-  /deep/ .has-error .ant-input-affix-wrapper .ant-input,
-  /deep/ .has-error .ant-input-affix-wrapper .ant-input:hover {
+  .has-error .ant-input-affix-wrapper .ant-input,
+  .has-error .ant-input-affix-wrapper .ant-input:hover {
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
   }
 
-  /deep/ .ant-input {
+  .ant-input {
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
 

@@ -77,7 +77,7 @@ export default class Home extends Component {
   }
 
   render () {
-    const { barData, statistics: { substations = 0, feeders = 0, connections = 0, rings = 0 }, feederData } = this.state
+    const { statistics: { substations = 0, feeders = 0, connections = 0, rings = 0 }, feederData } = this.state
     const lineData = [
       { name: "周一", 环网柜校验: 12, 异常: 21 },
       { name: "周二", 环网柜校验: 22, 异常: 14 },

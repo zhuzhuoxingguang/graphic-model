@@ -1,7 +1,17 @@
-import React, { Component } from 'react'
-import { Layout, Menu, Icon } from 'antd'
+import React, { Component } from "react"
+import { Layout, Menu, Icon } from "antd"
 const { Sider } = Layout
 const { SubMenu } = Menu
+
+const flatTrees = []
+
+const flatTreeData = arr => {
+  arr.forEach(item => {
+    if (flatTrees.some(t => t.key === item.key)) return
+    if (!item.children || !item.children.length) return flatTrees.push(item)
+    flatTreeData(item.children)
+  })
+}
 
 class VTree extends Component {
   state = {
@@ -28,7 +38,7 @@ class VTree extends Component {
     return arr.map(vnode => {
       // ? 放在行头 报close tag的错误
       // eslint-disable-next-line operator-linebreak
-      return (vnode.children && vnode.children.length) ?
+      return vnode.children && vnode.children.length ? (
         <SubMenu
           key={vnode.key}
           title={
@@ -38,36 +48,58 @@ class VTree extends Component {
             </span>
           }
         >
-          {
-            this.initTreeNode(vnode.children)
-          }
+          {this.initTreeNode(vnode.children)}
         </SubMenu>
-        : <Menu.Item key={vnode.key}>{vnode.icon ? <Icon type={vnode.icon} /> : null} {vnode.label}</Menu.Item>
+      ) : (
+        <Menu.Item key={vnode.key}>
+          {vnode.icon ? <Icon type={vnode.icon} /> : null} {vnode.label}
+        </Menu.Item>
+      )
     })
   }
 
-  componentDidMount () {
-    // const list = this.handleTreeData(this.state.treeData)
-    // console.log(list)
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { treeData } = nextProps
+    if (JSON.stringify(treeData) !== JSON.stringify(prevState.treeData)) {
+      console.log(treeData)
+      flatTreeData(treeData)
+      return {
+        ...prevState,
+        treeData: flatTrees
+      }
+    }
+    return null
   }
 
-  render () {
+  componentDidUpdate() {
+    // const list = this.handleTreeData(this.state.treeData)
+    console.log("====", this.rootSubmenuKeys)
+  }
+
+  handleClick = ({ keyPath, key }) => {
+    console.log(this.state)
+    const { onClick = () => {} } = this.props
+    const { treeData } = this.state
+    const target = treeData.find(node => node.key === key)
+    console.log("target", target)
+    onClick(target)
+  }
+
+  render() {
     const { width = 220, treeData = [] } = this.props
-    this.rootSubmenuKeys = treeData.map(item => item.key)
+    // this.rootSubmenuKeys = flatTrees.map(item => item.key)
     return (
       <Sider width={width}>
         <Menu
           onClick={this.handleClick}
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
-          mode='inline'
-          className='v-tree'
-          style={{ height: '100%' }}
+          mode="inline"
+          className="v-tree"
+          style={{ height: "100%" }}
           inlineIndent={12}
         >
-          {
-            this.initTreeNode(treeData)
-          }
+          {this.initTreeNode(treeData)}
         </Menu>
       </Sider>
     )

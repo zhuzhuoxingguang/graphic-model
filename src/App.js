@@ -5,9 +5,9 @@ import Layout from "@/layouts"
 import { ConfigProvider } from "antd"
 import zhCN from "antd/es/locale/zh_CN"
 
-if (process.env.NODE_ENV === "development" && process.env.REACT_APP_BASE_URL === "mock") {
-  require("./mock/index")
-}
+// if (process.env.NODE_ENV === "development" && process.env.REACT_APP_BASE_URL === "mock") {
+require("./mock/index")
+// }
 // console.log("process.env", process.env)
 
 function App () {

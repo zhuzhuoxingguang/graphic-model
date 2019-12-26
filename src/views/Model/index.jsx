@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable template-curly-spacing */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Row, Col } from 'antd'
@@ -20,6 +18,7 @@ class Model extends Component {
   getData = () => {
     this.props.changeLoading(true)
     getModelLoad().then(res => {
+      console.log("----", res)
       this.props.changeLoading()
       this.staticData = res.list
       const dataset = res.list.map(item => {

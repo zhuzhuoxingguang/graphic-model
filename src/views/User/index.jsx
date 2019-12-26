@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd'
 import { regPassword, regAccount } from '@/utils/pattern'
-// import { doLogin } from '@/api/user'
+import { doLogin } from '@/api/users'
 
 class Login extends Component {
-  // constructor(props) {
-  //   super(props)
-  // }
-
   handleSubmit = e => {
     console.log(this.props)
     e.preventDefault()
@@ -15,11 +11,14 @@ class Login extends Component {
       console.log(values)
       if (!err) {
         console.log('Received values of form: ', values)
-        return this.props.history.push('/home')
-        /*  const { account, password, remember } = values
+        // return this.props.history.push('/home')
+        const { account, password, remember } = values
         doLogin(account, password, remember).then(res => {
-           console.log(res)
-         }) */
+          if (res.status.toLowerCase() === "ok") {
+            this.props.history.push('/home')
+          }
+          console.log("res:", res)
+        })
       }
     })
   }
@@ -71,7 +70,7 @@ class Login extends Component {
               {getFieldDecorator('remember', {
                 valuePropName: 'checked',
                 initialValue: true
-              })(<Checkbox style={{ color: '#c1c8d1' }}>自动登录</Checkbox>)}
+              })(<Checkbox style={{ color: '#c1c8d1' }}>记住账户</Checkbox>)}
             </Form.Item>
             <Form.Item>
               <Button

@@ -1,130 +1,123 @@
-import React, { Component } from 'react'
-import { Card, Layout, Table, Tabs, Icon } from 'antd'
-import VTree from '@/components/VTree'
+import React, { Component } from "react"
+import { Card, Layout, Table, Tabs, Icon, Descriptions, Empty } from "antd"
+import VTree from "@/components/VTree"
+import { getNotConnectBus } from "../../api/topologySimple"
 const { TabPane } = Tabs
 const { Content } = Layout
 const { Column } = Table
 
+const resetTreeData = trees => {
+  return trees.map(node => {
+    const children =
+      (node.substations && node.substations.length && node.substations) ||
+      (node.feeders && node.feeders.length && node.feeders) ||
+      (node.extra && node.extra.length && node.extra)
+
+    if (!children || !children.length) {
+      const {
+        name,
+        graphID,
+        rdfID,
+        clazzName,
+        substationName,
+        switchStationName,
+        feederName,
+        feederID
+      } = node.substation
+      return {
+        label: name,
+        key: graphID,
+        rdfID,
+        clazzName,
+        substationName,
+        switchStationName,
+        feederName,
+        feederID,
+        equipments: node.equipments
+      }
+    }
+    let { name, rdfID } = node
+    return {
+      label: name,
+      key: rdfID,
+      children: resetTreeData(children)
+    }
+  })
+}
+
 class NoCollectBus extends Component {
   state = {
-    data: [
-      {
-        key: '1',
-        firstName: 'John',
-        lastName: 'Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer']
-      },
-      {
-        key: '2',
-        firstName: 'Jim',
-        lastName: 'Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser']
-      },
-      {
-        key: '3',
-        firstName: 'Joe',
-        lastName: 'Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher']
-      }
-    ]
+    list: [],
+    treeData: []
   }
 
-  render () {
-    const { data } = this.state
+  getData = () => {
+    getNotConnectBus().then(res => {
+      console.log("====", res)
+      if (res.result === 0 && res.hierarchyResults && res.hierarchyResults.length) {
+        this.setState({ treeData: resetTreeData(res.hierarchyResults) })
+      }
+    })
+  }
+  handleMenuChange = node => {
+    const { equipments = [] } = node
+    console.log("equipments:", equipments)
+    this.setState({ list: equipments })
+  }
+
+  componentDidMount() {
+    this.getData()
+  }
+
+  render() {
+    const { list, treeData } = this.state
     return (
       <Card bodyStyle={{ padding: 20 }}>
         <Layout>
-          <VTree treeData={[
-            {
-              label: '本部',
-              key: 'ben',
-              children: [
-                {
-                  label: '双湖变',
-                  key: 'shuanghu',
-                  children: [
-                    {
-                      label: '10kV碧桂园#1线146',
-                      key: '1000001',
-                      children: [
-                        {
-                          label: '漕东联K5330',
-                          key: 2000001111
-                        },
-                        {
-                          label: '东漕联K6240',
-                          key: 2000001112
-                        }
-                      ]
-                    },
-                    {
-                      label: '10kV下坝线132',
-                      key: '1000002'
-                    }
-                  ]
-                },
-                {
-                  label: '淳东变',
-                  key: 'chundong'
-                }
-              ]
-            },
-            {
-              label: '本部123',
-              key: 'ben12',
-              children: [
-                {
-                  label: '上饶变',
-                  checked: true,
-                  key: 'shangrao'
-                }
-              ]
-            }
-          ]}
-          />
-          <Content style={{ paddingLeft: 20, background: '#fff' }}>
-            <Tabs defaultActiveKey='table'>
+          <VTree treeData={treeData} onClick={this.handleMenuChange} />
+          <Content style={{ paddingLeft: 20, background: "#fff" }}>
+            <Tabs defaultActiveKey="table">
               <TabPane
                 tab={
                   <span>
-                    <Icon type='bar-chart' /> 图形
+                    <Icon type="bar-chart" /> 图形
                   </span>
                 }
-                key='chart'
+                key="chart"
               >
                 Tab 1
               </TabPane>
               <TabPane
                 tab={
                   <span>
-                    <Icon type='table' /> 列表
+                    <Icon type="table" /> 列表
                   </span>
                 }
-                key='table'
+                key="table"
               >
-                <Table dataSource={data}>
-                  <Column title='rdfID' dataIndex='firstName' key='firstName' />
-                  <Column title='设备名称' dataIndex='firstName' key='firstName' />
-                  <Column title='设备类型' dataIndex='age' key='age' />
-                  <Column title='变电站' dataIndex='lastName' key='lastName' />
-                  <Column title='配电站' dataIndex='address' key='address' />
-                  <Column
-                    title='馈线'
-                    key='action'
-                    render={(text, record) => (
-                      <span>
-                        <span>Invite {record.lastName}</span>
-                      </span>
-                    )}
-                  />
-                  <Column title='馈线ID' dataIndex='address' key='address' />
-                </Table>
+                {list.length > 1 ? (
+                  <Table dataSource={list} bordered pagination={{ hideOnSinglePage: true }}>
+                    <Column title="rdfID" dataIndex="rdfID" key="rdfID" />
+                    <Column title="设备名称" dataIndex="name" key="name" />
+                    <Column title="设备类型" dataIndex="clazzName" key="clazzName" />
+                    <Column title="变电站" dataIndex="substationName" key="substationName" />
+                    <Column title="配电站" dataIndex="switchStationName" key="switchStationName" />
+                    <Column title="馈线" key="feederName" dataIndex="feederName" />
+                    <Column title="馈线ID" dataIndex="feederID" key="feederID" />
+                  </Table>
+                ) : list.length === 1 ? (
+                  <Descriptions title={list[0].label} layout="vertical" bordered>
+                    <Descriptions.Item label="rdfID">{list[0].rdfID}</Descriptions.Item>
+                    <Descriptions.Item label="设备名称">{list[0].label}</Descriptions.Item>
+                    <Descriptions.Item label="设备类型">{list[0].clazzName}</Descriptions.Item>
+                    <Descriptions.Item label="变电站">{list[0].substationName}</Descriptions.Item>
+                    <Descriptions.Item label="配电站">{list[0].switchStationName}</Descriptions.Item>
+                    <Descriptions.Item label="馈线">{list[0].feederName}</Descriptions.Item>
+                    <Descriptions.Item label="馈线ID">{list[0].feederID}</Descriptions.Item>
+                  </Descriptions>
+                ) : (
+                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                )}
               </TabPane>
             </Tabs>
           </Content>

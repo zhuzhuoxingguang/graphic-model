@@ -1,3 +1,6 @@
-import './user'
-import './relation'
-import './load'
+import "./user"
+import "./relation"
+import "./load"
+import "./properties"
+import "./topoSimple"
+import "./topology"
